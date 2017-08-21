@@ -1,0 +1,29 @@
+php-fpm:
+  image: docker.io/php:7.1.8-fpm
+  container_name: php-fpm
+  volumes:
+    - /webser/www:/var/www/html
+    - /etc/hosts:/etc/hosts
+    - /webser/etc/php:/usr/local/etc/php/conf.d
+  ports:
+    - "9000:9000"      
+nginx:
+  image: docker.io/nginx
+  container_name: nginx
+  ports:
+    - "80:80"
+  volumes:
+    - /webser/www:/var/www/html
+    - /webser/etc/nginx:/etc/nginx/conf.d
+    - /webser/logs/nginx:/var/log/nginx
+  links:
+    - php-fpm
+mysql:
+  image: docker.io/mysql:5.7.19
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  volumes:
+    - /webser/etc/mysql:/etc/mysql/conf.d
+  environment:
+    - MYSQL_ROOT_PASSWORD=fungli520
