@@ -1,5 +1,6 @@
 php-fpm:
-  image: docker.io/php:7.1.8-fpm
+  #image: docker.io/php:7.1.8-fpm
+  build: ./php/
   container_name: php-fpm
   volumes:
     - /webser/www:/var/www/html
@@ -16,14 +17,8 @@ nginx:
     - /webser/www:/var/www/html
     - /webser/etc/nginx:/etc/nginx/conf.d
     - /webser/logs/nginx:/var/log/nginx
+   # 配置ssl使用
+   # - /etc/ssl:/etc/ssl
+   # - /etc/letsencrypt:/etc/letsencrypt
   links:
     - php-fpm
-mysql:
-  image: docker.io/mysql:5.7.19
-  container_name: mysql
-  ports:
-    - "3306:3306"
-  volumes:
-    - /webser/etc/mysql:/etc/mysql/conf.d
-  environment:
-    - MYSQL_ROOT_PASSWORD=fungli520

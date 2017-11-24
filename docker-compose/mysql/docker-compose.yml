@@ -1,0 +1,9 @@
+mysql:
+  image: docker.io/mysql:5.7.19
+  container_name: mysql
+  ports:
+    - "3306:3306"
+  volumes:
+    - /webser/etc/mysql:/etc/mysql/conf.d
+  environment:
+    - MYSQL_ROOT_PASSWORD=fungli520
